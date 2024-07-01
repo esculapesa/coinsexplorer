@@ -29,7 +29,7 @@ services:
     links:
       - db:database
     environment:
-        ETHEREUM_JSONRPC_VARIANT: 'geth'
+      ETHEREUM_JSONRPC_VARIANT: 'geth'
 
   visualizer:
     extends:
