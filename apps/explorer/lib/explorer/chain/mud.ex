@@ -367,7 +367,8 @@ defmodule Explorer.Chain.Mud do
 
       _ when type < 64 ->
         size = static_type_size(type)
-        <<int::signed-integer-size(size * 8)>> = raw
+        size_in_bits = size * 8
+        <<int::signed-integer-size(size_in_bits)>> = raw
         int |> Integer.to_string()
 
       _ when type < 96 or type == 196 ->
