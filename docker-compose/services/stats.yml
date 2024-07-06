@@ -1,10 +1,8 @@
-version: '3.9'
-
 services:
   stats-db-init:
     image: postgres:15
     volumes:
-      - ./stats-db-data:/var/lib/postgresql/data
+      - stats-db-data:/var/lib/pgsql/data
     entrypoint: ["sh", "-c", "sleep 300"]
 
   stats-db:
@@ -15,13 +13,13 @@ services:
     container_name: 'stats-db'
     command: postgres -c 'max_connections=200'
     environment:
-        POSTGRES_DB: 'stats'
-        POSTGRES_USER: 'stats'
-        POSTGRES_PASSWORD: 'n0uejXPl61ci6ldCuE2gQU5Y'
+      POSTGRES_DB: 'stats'
+      POSTGRES_USER: 'stats'
+      POSTGRES_PASSWORD: 'n0uejXPl61ci6ldCuE2gQU5Y'
     ports:
       - "7433:5432"
     volumes:
-      - ./stats-db-data:/var/lib/postgresql/data
+      - stats-db-data:/var/lib/pgsql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U stats -d stats"]
       interval: 10s
@@ -36,14 +34,14 @@ services:
     restart: always
     container_name: 'stats'
     extra_hosts:
-      - '65.108.151.70:host-gateway'
+      - '65.108.151.70:host-gateway' # Use the public IP address of the node
     env_file:
-      -  ../envs/common-stats.env
+      - ../envs/common-stats.env
     environment:
-      - STATS__DB_URL=${STATS__DB_URL:-postgres://stats:n0uejXPl61ci6ldCuE2gQU5Y@stats-db:5432/stats}
-      - STATS__BLOCKSCOUT_DB_URL=${STATS__BLOCKSCOUT_DB_URL:-postgresql://blockscout:ceWb1MeLBEeOIfk65gU8EjF8@db:5432/blockscout}
+      - STATS__DB_URL=${STATS__DB_URL:-postgres://stats:n0uejXPl61ci6ldCuE2gQU5Y@localhost:7433/stats}
+      - STATS__BLOCKSCOUT_DB_URL=${STATS__BLOCKSCOUT_DB_URL:-postgresql://blockscout:ceWb1MeLBEeOIfk65gU8EjF8@localhost:7433/blockscout}
       - STATS__CREATE_DATABASE=${STATS__CREATE_DATABASE:-true}
       - STATS__RUN_MIGRATIONS=${STATS__RUN_MIGRATIONS:-true}
-      
+
 volumes:
   stats-db-data:
