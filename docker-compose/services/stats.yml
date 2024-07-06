@@ -34,7 +34,7 @@ services:
     restart: always
     container_name: "stats"
     extra_hosts:
-      - "65.108.151.70:host-gateway" # Use the public IP address of the node
+      - "65.108.151.70:host-gateway"  # Use the public IP address of the node
     env_file:
       - ../envs/common-stats.env
     environment:
@@ -42,7 +42,3 @@ services:
       - STATS__BLOCKSCOUT_DB_URL=${STATS__BLOCKSCOUT_DB_URL:-postgresql://blockscout:ceWb1MeLBEeOIfk65gU8EjF8@localhost:7433/blockscout}
       - STATS__CREATE_DATABASE=${STATS__CREATE_DATABASE:-true}
       - STATS__RUN_MIGRATIONS=${STATS__RUN_MIGRATIONS:-true}
-
-volumes:
-  stats-db-data:
-    driver: local

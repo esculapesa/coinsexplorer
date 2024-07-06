@@ -11,8 +11,7 @@ services:
 
   db:
     depends_on:
-      db-init:
-        condition: service_completed_successfully
+      - db-init
     extends:
       file: ./services/db.yml
       service: db
@@ -35,13 +34,13 @@ services:
         CACHE_TOTAL_GAS_USAGE_COUNTER_ENABLED: ""
         CACHE_ADDRESS_WITH_BALANCES_UPDATE_INTERVAL: ""
         ADMIN_PANEL_ENABLED: ""
-        RELEASE_VERSION: 6.7.1
+        RELEASE_VERSION: "6.7.1"
     links:
       - db:database
     environment:
-      ETHEREUM_JSONRPC_HTTP_URL: http://65.108.151.70:8545/
-      ETHEREUM_JSONRPC_TRACE_URL: http://65.108.151.70:8545/
-      ETHEREUM_JSONRPC_WS_URL: ws://65.108.151.70:8545/
+      ETHEREUM_JSONRPC_HTTP_URL: "http://65.108.151.70:8545/"
+      ETHEREUM_JSONRPC_TRACE_URL: "http://65.108.151.70:8545/"
+      ETHEREUM_JSONRPC_WS_URL: "ws://65.108.151.70:8545/"
       CHAIN_ID: '83278'
 
   visualizer:
@@ -68,8 +67,7 @@ services:
 
   stats-db:
     depends_on:
-      stats-db-init:
-        condition: service_completed_successfully
+      - stats-db-init
     extends:
       file: ./services/stats.yml
       service: stats-db
@@ -98,3 +96,6 @@ services:
     extends:
       file: ./services/nginx.yml
       service: proxy
+
+volumes:
+  stats-db-data: {}
