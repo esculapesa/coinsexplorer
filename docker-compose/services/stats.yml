@@ -2,7 +2,7 @@ services:
   stats-db-init:
     image: postgres:15
     volumes:
-      - stats-db-data:/var/lib/pgsql/data
+      - stats-db-data:/var/run/postgresql/data
     entrypoint: ["sh", "-c", "sleep 300"]
 
   stats-db:
@@ -19,7 +19,7 @@ services:
     ports:
       - "7433:5432"
     volumes:
-      - stats-db-data:/var/lib/pgsql/data
+      - stats-db-data:/var/run/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U stats -d stats"]
       interval: 10s
