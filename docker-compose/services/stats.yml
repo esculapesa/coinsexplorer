@@ -5,11 +5,7 @@ services:
     image: postgres:15
     volumes:
       - ./stats-db-data:/var/lib/postgresql/data
-    entrypoint:
-      - sh
-      - -c
-      - |
-        chown -R 2000:2000 /var/lib/postgresql/data
+    entrypoint: ["sh", "-c", "sleep 300"]
 
   stats-db:
     image: postgres:15
@@ -23,8 +19,7 @@ services:
         POSTGRES_USER: 'stats'
         POSTGRES_PASSWORD: 'n0uejXPl61ci6ldCuE2gQU5Y'
     ports:
-      - target: 5432
-        published: 7433
+      - "7433:5432"
     volumes:
       - ./stats-db-data:/var/lib/postgresql/data
     healthcheck:
