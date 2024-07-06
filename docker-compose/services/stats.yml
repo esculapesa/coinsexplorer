@@ -45,3 +45,4 @@ services:
 
 volumes:
   stats-db-data:
+    driver: local
