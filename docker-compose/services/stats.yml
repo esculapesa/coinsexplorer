@@ -34,7 +34,7 @@ services:
     restart: always
     container_name: "stats"
     extra_hosts:
-      - "193.106.228.97:host-gateway"  # Use the public IP address of the node
+      - "65.108.151.70:host-gateway"  # Use the public IP address of the node
     env_file:
       - ../envs/common-stats.env
     environment:
