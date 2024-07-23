@@ -1,6 +1,16 @@
 version: '3.9'
 
 services:
+  db-init:
+    extends:
+      file: ./services/db.yml
+      service: db-init
+
+  db:
+    extends:
+      file: ./services/db.yml
+      service: db
+
   visualizer:
     extends:
       file: ./services/visualizer.yml
@@ -37,6 +47,7 @@ services:
   stats:
     depends_on:
       - stats-db
+      - db
     extends:
       file: ./services/stats.yml
       service: stats
