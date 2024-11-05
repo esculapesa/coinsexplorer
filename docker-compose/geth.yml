@@ -30,6 +30,7 @@ services:
       - db:database
     environment:
         ETHEREUM_JSONRPC_VARIANT: 'geth'
+        DB_RUN_MIGRATIONS: 'true'
 
   visualizer:
     extends:
